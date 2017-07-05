@@ -1,0 +1,22 @@
+{
+  "name": "fdcomponent",
+  "version": "0.1.0",
+  "description": "webComponent",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivydan/fdComponent.git"
+  },
+  "author": "fdDan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivydan/fdComponent/issues"
+  },
+  "homepage": "https://github.com/ivydan/fdComponent#readme",
+  "devDependencies": {
+    "react": "^15.6.1"
+  }
+}
