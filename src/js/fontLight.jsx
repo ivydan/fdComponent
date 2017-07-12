@@ -1,35 +1,25 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import "./FontLight.css";
 
-import Font from '../../components/fontLight/index';
-import FontTest from '../../components/fontTest/index';
-import Wood from '../../components/wood/index';
-
-import "./index.css";
-
-class App extends React.Component {
-	constructor(props) {
-		super(props);
+export default class Index extends React.Component{
+	constructor(props){
+		super(props)
 	}
 
-	render() {
+	render(){
+		let className = this.props.className ? 
+			`fd-font-light ${this.props.className}` :
+			"fd-font-light";
+		let { test, color } = this.props;
 		return (
-			<div className="container">
-				<div className="fd-title">
-					<Font test="WebSiteAB" color={["#6688ef", "#71ef30"]} />
-				</div>
-				{/*<Wood />*/}
-				<div className="fd-flow">
-					<span className="flow-comm flow-c">css</span>
-					<span className="flow-comm flow-a">abc</span>
-					<span className="flow-comm flow-x">xml</span>
-				</div>
-				
+			<div className={className}>
+				<span className="lignt-txt" data-text={test}>{test}</span>
+				<div className="lignt-bgc" style={
+					color ? {background: `linear-gradient(45deg, ${color[0]}, ${color[1]})`}
+					:{}
+				}></div>
+				<div className="lignt-ani"></div>
 			</div>
-		)
+			)
 	}
 }
-
-const app = document.createElement('div');
-document.body.appendChild(app);
-ReactDom.render(<App />, app);
