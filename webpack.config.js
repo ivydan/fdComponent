@@ -22,7 +22,7 @@ var getFiles = function(filepath) {
 		return entries
 	}
 	// var entryJs = getFiles('./src/pages/*/index.jsx');
-var entryJs = getFiles('./src/components/*/index.jsx');
+var entryJs = getFiles('./components/*/index.jsx');
 
 // Plugins
 var plugins = [
@@ -40,12 +40,13 @@ Object.keys(pages).forEach(function(pathName) {
 	);
 })
 
-var entry = glob_entries('./src/js/*.jsx');
+// var entry = glob_entries('./src/js/*.jsx');
+var entry = glob_entries('./components/*/index.jsx');
 
-console.log("entry:", entry);
+console.log("entry:", entry, entryJs);
 
 module.exports = {
-	entry: entry, //入口文件
+	entry: entryJs, //入口文件
 	output: {
 		path: path.resolve(ROOT_PATH, './lib'),
 		filename: '[name].js',
@@ -54,10 +55,10 @@ module.exports = {
 	resolve: {
 		extensions: [".js", ".jsx"]
 	},
-	// externals: {
-	// 	"react": "React",
-	// 	"react-dom": "ReactDom"
-	// },
+	externals: {
+		"react": "React",
+		"react-dom": "ReactDom"
+	},
 	module: { //module.loader 是对模块中的loader使用的配置
 		// preLoaders:[{
 		// 	test:/\.jsx?$/,
