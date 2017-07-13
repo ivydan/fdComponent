@@ -1,7 +1,7 @@
 import React from 'react';
 import "./FontLight.css";
 
-export default class Index extends React.Component{
+export default class FontLight extends React.Component{
 	constructor(props){
 		super(props)
 	}

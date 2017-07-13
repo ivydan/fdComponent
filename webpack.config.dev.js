@@ -1,5 +1,5 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var LiveReloadPlugin = require('webpack-livereload-plugin');
+// var LiveReloadPlugin = require('webpack-livereload-plugin');
 var path = require('path');
 var glob_entries = require('webpack-glob-entries');
 var webpack = require('webpack');
@@ -30,7 +30,6 @@ var config = {
     },
 
     resolve: {
-        root: srcPath,
         extensions: ['', '.js', '.jsx']
     },
 
@@ -62,7 +61,7 @@ var config = {
         }),
 
         //代码热替换
-        new LiveReloadPlugin(),
+        // new LiveReloadPlugin(),
 
         //new ExtractTextPlugin('[name].css', { allChunks: true }),
 
