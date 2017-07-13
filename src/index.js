@@ -1,28 +1,8 @@
-import React, { Component } from 'react';
+import Tabs from './components/Tabs';
+import TabList from './components/TabList';
+import Tab from './components/Tab';
+import TabPanel from './components/TabPanel';
+import { reset as resetIdCounter } from './helpers/uuid';
+import FontLight from './js/fontLight';
 
-module.exports = function fontLight(){
-    class FontLight extends Component{
-        constructor(props){
-            super(props)
-        }
-
-        render(){
-            let className = this.props.className ? 
-                `fd-font-light ${this.props.className}` :
-                "fd-font-light";
-            let { test, color } = this.props;
-            return (
-                <div className={className}>
-                    <span className="lignt-txt" data-text={test}>{test}</span>
-                    <div className="lignt-bgc" style={
-                        color ? {background: `linear-gradient(45deg, ${color[0]}, ${color[1]})`}
-                        :{}
-                    }></div>
-                    <div className="lignt-ani"></div>
-                </div>
-                )
-        }
-    }
-
-    return FontLight;
-}
+export { Tab, TabList, TabPanel, Tabs, resetIdCounter, FontLight };

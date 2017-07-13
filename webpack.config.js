@@ -1,91 +1,50 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var glob = require('glob');
-var glob_entries = require("webpack-glob-entries");
+'use strict';
 
-var ROOT_PATH = path.resolve(__dirname);
-var APP_PATH = path.resolve(ROOT_PATH, 'src');
-var getFiles = function(filepath) {
-		var files = glob.sync(filepath);
-		var entries = {};
-		files.forEach(function(item) {
-			var pathname = path.basename(path.dirname(item));
-			//inline 模式
-			entries[pathname] = item;
-			//iframe 模式
-			// entries[pathname] = [];
-			// entries[pathname].push(item);
-			// entries[pathname].push('webpack-dev-server/client?http://localhost:8080');
-			// entries[pathname].push('webpack/hot/dev-server');
-		});
-		return entries
-	}
-	// var entryJs = getFiles('./src/pages/*/index.jsx');
-var entryJs = getFiles('./components/*/index.jsx');
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
 
-// Plugins
-var plugins = [
-	new ExtractTextPlugin('[name]/[name].css'),
-	// new webpack.optimize.CommonsChunkPlugin('react.js')
-];
-var pages = getFiles('./src/js/*.jsx');
-Object.keys(pages).forEach(function(pathName) {
-	plugins.push(
-		new HtmlWebpackPlugin({
-			// template: './src/pages/' + pathName + '/index.html',
-			filename: pathName + '.html',
-			chunks: ['common', pathName],
-		})
-	);
-})
+const EXAMPLES_DIR = path.join(__dirname, 'examples');
 
-// var entry = glob_entries('./src/js/*.jsx');
-var entry = glob_entries('./components/*/index.jsx');
+function buildEntries() {
+  return fs.readdirSync(EXAMPLES_DIR).reduce(function (entries, dir) {
+    if (dir === 'build') {
+      return entries;
+    }
 
-console.log("entry:", entry, entryJs);
+    const isDraft = dir.charAt(0) === '_';
+    const isDirectory = fs.lstatSync(path.join(EXAMPLES_DIR, dir)).isDirectory();
 
-module.exports = {
-	entry: entryJs, //入口文件
-	output: {
-		path: path.resolve(ROOT_PATH, './lib'),
-		filename: '[name].js',
-		publicPath: '/lib/'
-	}, // 出口文件 path输出目录， filename输出文件名， publicPath输入目录所对应的外部目录
-	resolve: {
-		extensions: [".js", ".jsx"]
-	},
-	externals: {
-		"react": "React",
-		"react-dom": "ReactDom"
-	},
-	module: { //module.loader 是对模块中的loader使用的配置
-		// preLoaders:[{
-		// 	test:/\.jsx?$/,
-		// 	loaders:['eslint'],
-		// 	include: APP_PATH,
-		// 	exclude: /node_modules/
-		// }],
-		loaders: [{
-			test: /\.css$/,
-			loader: ['style-loader', 'css-loader']
-		}, {
-			test: /\.jsx?$/,
-			loaders: 'babel-loader',
-			exclude: /node_modules/,
-			query: {
-				presets: ["es2015", "react"]
-			}
-		}]
-	},
-	plugins: [ //使用插件机制
-			new HtmlWebpackPlugin({
-				title: 'Index',
-				path: path.join(__dirname, 'build'),
-				filename: 'index.html',
-			})
-		]
-		// plugins: plugins,
+    if (!isDraft && isDirectory) {
+      entries[dir] = path.join(EXAMPLES_DIR, dir, 'app.js');
+    }
+
+    return entries;
+  }, {});
 }
 
-//webpack -w 可实时构建，监听文件改动，手动刷新浏览器可查看改动结果
+module.exports = {
+  entry: buildEntries(),
+  output: {
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
+    path: path.join(__dirname, 'examples/__build__'),
+    publicPath: '/__build__/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ],
+      },
+    ],
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({ name: 'shared' }),
+  ]
+};

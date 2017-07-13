@@ -4,4 +4,4 @@
 export {
 	default as FontLight
 }
-from './components/FontLight';
+from './lib/index.js';
