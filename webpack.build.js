@@ -4,7 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-let COMPONENT_FILE = 'react-tabs';
+let COMPONENT_FILE = 'index';
 const plugins = [];
 const babelOptions = {};
 
@@ -43,7 +43,7 @@ module.exports = {
   output: {
     filename: COMPONENT_FILE + '.js',
     path: path.join(__dirname, 'dist'),
-    library: 'ReactTabs',
+    library: 'fd',
     libraryTarget: 'umd',
   },
   externals: {
@@ -73,7 +73,10 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: babelOptions,
-      },
+      },{
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ],
+      }
     ],
   },
   plugins: plugins,

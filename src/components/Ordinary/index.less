@@ -1,0 +1,106 @@
+#layout-ordinary-main{
+  animation: 1s pulse;
+  .layout-bg{
+    position: absolute;
+    width: 100%;
+    background-color: #50465E;
+    opacity: .7;
+  }
+  .layout-content{
+    position: relative;
+    /*top: 120px;*/
+    padding-top: 120px;
+    box-sizing: border-box;
+    width: 1120px;
+    margin:0 auto;
+    color: #fff;
+    font-size: 20px;
+    font-family: cursive;
+    .layout-b{
+      text-align: center;
+      .layout-cir{
+        display: inline-block;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        border: 3px solid #fff;
+        span{
+          width: 80px;
+          height: 80px;
+          background-color: #fff;
+          display: inline-block;
+          border-radius: 50px;
+          margin-top: 10px;
+          line-height: 80px;
+          color: #cecccc;
+          font-family: fantasy;
+          font-size: 35px;
+        }
+      }
+    }
+    .layout-hel{
+      margin-top: 30px;
+      text-align: center;
+      font-size: 40px;
+    }
+    .layout-name{
+      margin-top: 10px;
+        text-align: center;
+        font-size: 41px;
+        span{
+          font-family:  Arial, sans-serif;
+          font-weight: 700;
+          position: relative;
+          top: -5px;
+          left: 5px;
+        }
+    }
+    .layout-intro{
+      margin-top: 12px;
+      text-align: center;
+      font-size: 25px;
+    }
+    .layout-bot{
+      margin-top: 82px;
+      li{
+        display: inline-block;
+        list-style: none;
+        margin: 0 130px;
+        opacity:0;
+        animation: 1s bounceInDown;
+        animation-fill-mode: forwards;
+      }
+    }
+  }
+}
+@keyframes pulse{
+  0%{transform:scale3d(1,1,1)}
+  50%{transform:scale3d(1.15,1.15,1.15)}
+  100%{transform:scale3d(1,1,1)}
+}
+@keyframes bounceInDown{
+  0%,100%,60%,75%,90%{
+    transition-timing-function:cubic-bezier(0.215,.61,.355,1);
+  }
+  0%{
+    opacity:0;
+    transform:translate3d(0,-1000px,0);
+  }
+  60%{
+    opacity:.8;
+    transform:translate3d(0,25px,0);
+  }
+  75%{
+    opacity:1;
+    transform:translate3d(0,-10px,0);
+  }
+  90%{
+    opacity:.4;
+    transform:translate3d(0,5px,0);
+  }
+  100%{
+    opacity:1;
+    transform:none
+  };
+}

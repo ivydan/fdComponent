@@ -1,19 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Tab, Tabs, TabList, TabPanel, FontLight } from '../../src/index';
+import { Tab, Tabs, TabList, TabPanel, FontLight, Wood, CanTagBall } from '../../src/index';
 import '../../style/react-tabs.css';
 
 const App = () => {
+  
   return (
     <div>
-      <p><em>Hint:</em></p>
-      <ul>
-        <li>use keyboard tab to focus tabs</li>
-        <li>use arrow keys to navigate focused tabs</li>
-      </ul>
-
       <FontLight test="WebSiteABC" color={["#6688ef", "#71ef30"]} />
-
+      {/* <Wood /> */}
       <Tabs forceRenderTabPanel={true}>
         <TabList>
           <Tab>React</Tab>

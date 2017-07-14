@@ -1,0 +1,125 @@
+/*动画函数*/
+
+.animationFadeUp(@n,@i:1) when (@i =< @n) {
+  .scroll-animup-@{i} {
+    animation: fadeUp 1s forwards;
+    animation-delay: (@i - 1s) / 2;
+  }
+  .animationFadeUp(@n,(@i + 1));
+}
+
+.animationFadeDown(@n,@i:1) when (@i =< @n) {
+  .scroll-animdown-@{i} {
+    animation: fadeDown 1s;
+    animation-delay: (@i - 1s) / 2;
+  }
+  .animationFadeDown(@n,(@i + 1));
+}
+
+.transFadeUp(@n,@i:1) when (@i =< @n) {
+  .scroll-tranUp-@{i} {
+    transition: transform 1s (@i - 1s) / 5, width 1s, height 1s;
+    transform: translateY(0);
+  }
+  .transFadeUp(@n, (@i + 1));
+}
+.transFadeDown(@n,@i:1) when (@i =< @n) {
+  .scroll-tranDown-@{i} {
+    transition: transform 1s (@i - 1s) / 15, width 1s, height 1s;
+    transform: translateY(140px);
+  }
+  .transFadeDown(@n, (@i + 1));
+}
+.commonStyleTitle{
+  color: #fff;
+  font-size: 28px;
+  font-family: cursive;
+  text-align: center;
+  font-weight: 600;
+}
+
+.tag-scroll{
+  height: 288px;
+  padding-top: 20px;
+  background-color: #bd95f1;
+  .tag-title{
+    .commonStyleTitle;
+    .transFadeUp(1);
+    .transFadeDown(1);
+  }
+  ul{
+    margin: 0;
+    padding: 0;
+    height: 120px;
+    overflow: hidden;
+    width: 1120px;
+    margin: 0 auto;
+    color: #fff;
+    li{
+      display: inline-block;
+      margin: 25px 56px;
+      /*transform: translateY(140px);*/
+      border: 3px solid #fff;
+      padding: 5px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50px;
+      text-align: center;
+      line-height: 56px;
+      position: relative;
+      cursor: pointer;
+      font-size: 15px;
+      span{
+        position: absolute;
+        top: -17px;
+        left: -20px;
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        background-color: #442650;
+        border-radius: 15px;
+        color: #fff;
+        font-weight: 600;
+        opacity: 0;
+        line-height: 36px;
+        transition: opacity 1s, transform 1s;
+        transform: translateY(140px) perspective(400px) rotateY(0);
+      }
+    }
+    /*.animationFadeUp(4);
+    .animationFadeDown(4);*/
+    .transFadeUp(6);
+    .transFadeDown(6);
+    li:hover span{
+      /*animation: fadeUp 1s forwards;*/
+      transform: translateY(0) perspective(400px) rotateY(360deg);
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes fadeUp{
+  0%{
+    transform: translateY(140px);
+  }
+  100%{
+    transform: translateY(0);
+  }
+}
+@keyframes fadeDown{
+  0%{
+    transform: translateY(0);
+  }
+  100%{
+    transform: translateY(140px);
+  }
+}
+
+@keyframes transformPer{
+  from{
+    transform:perspective(400px) rotateY(0deg)
+  }
+  to{
+    transform:perspective(400px) rotateY(360deg)
+  }
+}

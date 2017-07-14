@@ -1,0 +1,75 @@
+.fe-tag-ball-content{
+	width: 100%;
+	height: 300px;
+	background-color: #a987d7;
+	border-radius: 20px;
+	padding: 20px;
+	box-sizing: border-box;
+	opacity: .9;
+	position: relative;
+}
+.fe-tag-ball-content span{
+	font-size: 18px;
+	display: inline-block;
+	background-color: #4f0a72;
+	border-radius: 100px;
+	padding: 6px;
+	text-align: center;
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	color: #fff;
+}
+.fe-tag-ball-content .tag-span-0{
+	position: absolute;
+	top: 30px;
+	left: 40px;
+	animation: tagBall01 5s infinite alternate;
+}
+.fe-tag-ball-content .tag-span-1{
+	position: absolute;
+	top: 155px;
+	left: 160px;
+	animation: tagBall02 5s infinite alternate;
+}
+.fe-tag-ball-content .tag-span-2{
+	position: absolute;
+	top: 45px;
+	left: 300px;
+	animation: tagBall03 5s infinite alternate;
+}
+.fe-tag-ball-content .tag-span-3{
+	position: absolute;
+	top: 130px;
+	left: 440px;
+	animation: tagBall04 5s infinite alternate;
+}
+.fe-tag-ball-content .tag-span-4{
+	position: absolute;
+	top: 30px;
+	left: 590px;
+	animation: tagBall02 5s infinite alternate;
+}
+.fe-tag-ball-content .tag-span-5{
+	position: absolute;
+	top: 137px;
+	left: 720px;
+	animation: tagBall03 5s infinite alternate;
+}
+
+@keyframes tagBall01{
+	from{transform: translate(10px,10px);}
+	to{transform: translate(-10px,-10px);}
+}
+@keyframes tagBall02{
+	from{transform: translate(10px,-10px);}
+	to{transform: translate(-10px,10px);}
+}
+@keyframes tagBall03{
+	from{transform: translate(-10px,10px);}
+	to{transform: translate(10px,-10px);}
+}
+@keyframes tagBall04{
+	from{transform: translate(-10px,-10px);}
+	to{transform: translate(10px,10px);}
+}

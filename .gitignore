@@ -2,4 +2,6 @@ node_modules
 jam
 assets
 build
+dist
+lib
 records.json

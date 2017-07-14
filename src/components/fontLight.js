@@ -1,5 +1,5 @@
 import React from 'react';
-import './FontLight.css';
+import './fontLight.css';
 
 export default class FontLight extends React.Component {
   constructor(props) {

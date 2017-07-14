@@ -1,0 +1,12 @@
+.fe-can-tag-ball-content{
+	width: 100%;
+	height: 300px;
+	background-color: #a987d7;
+	border-radius: 20px;
+	/*padding: 20px;*/
+	box-sizing: border-box;
+	opacity: .9;
+}
+.fe-can-tag-ball-content .tag-ball{
+	
+}
