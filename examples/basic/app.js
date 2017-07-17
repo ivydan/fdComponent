@@ -1,13 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Tab, Tabs, TabList, TabPanel, FontLight, Wood, CanTagBall } from '../../src/index';
+import { Snow, Navigation, Tab, Tabs, TabList, TabPanel, FontLight, Wood, CanTagBall } from '../../src/index';
 import '../../style/react-tabs.css';
 
 const App = () => {
   
   return (
     <div>
-      <FontLight test="WebSiteABC" color={["#6688ef", "#71ef30"]} />
+      <Navigation />
+      <div>
+        <Snow />
+      </div>
       {/* <Wood /> */}
       <Tabs forceRenderTabPanel={true}>
         <TabList>

@@ -6,5 +6,18 @@ import { reset as resetIdCounter } from './helpers/uuid';
 import FontLight from './components/fontLight';
 import Wood from './components/wood';
 import CanTagBall from './components/canTagBall';
+import Navigation from './components/navigation';
+import Snow from './components/snow';
 
-export { Tab, TabList, TabPanel, Tabs, resetIdCounter, FontLight, Wood, CanTagBall };
+export {
+  Snow,
+  FontLight,
+  Wood,
+  CanTagBall,
+  Navigation,
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+  resetIdCounter,
+};

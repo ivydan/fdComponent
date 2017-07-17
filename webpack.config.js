@@ -40,8 +40,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ],
-      },
+        loader: [ 'style-loader', 'css-loader' ],
+      },{
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader",
+        exclude: /node_modules/
+      }
     ],
   },
   plugins: [

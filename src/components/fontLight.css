@@ -4,7 +4,7 @@
 	position: relative;
 	right: -1px;
 	display: inline-block;
-	font-family: sans-serif;
+	font-family: monospace;
 	background: #000;
 	padding: 10px 20px;
 	overflow: hidden;
