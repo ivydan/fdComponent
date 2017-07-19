@@ -145,9 +145,12 @@ export default class Index extends Component {
     super(props);
 
     this.height =
-      window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      500 ||
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight;
     this.width =
-      window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      800 || window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
     this.INIT_HUE = 180;
     this.DELTA_HUE = 0.1;
@@ -158,6 +161,7 @@ export default class Index extends Component {
     this.VELOCITY = { MIN: -1, MAX: 1 };
     this.DELTA_ROTATE = { MIN: -Math.PI / 180 / 2, MAX: Math.PI / 180 / 2 };
     this.SCALE = { INIT: 0.04, DELTA: 0.01 };
+    this.depth = 4;
   }
   //   static defaultProps = {
   //   }
@@ -231,34 +235,38 @@ export default class Index extends Component {
 
     //创建雪花
 
-    let topRadius = this._getRandomValue({ MIN: 1, MAX: 3 }),
-      randomDeg = Math.PI * 2 * Math.random(),
-      snow = {
-        x: center.x + this.INIT_POSITION_MARGIN * Math.cos(randomDeg),
-        y: center.y + this.INIT_POSITION_MARGIN * Math.sin(randomDeg),
-        vx: this.getRandomValue(this.VELOCITY),
-        vy: this.getRandomValue(this.VELOCITY),
-        deltaRotate: this.getRandomValue(this.DELTA_ROTATE),
-        scale: this.SCALE.INIT,
-        deltaScale: 1 + this.SCALE.DELTA * 500 / Math.max(this.width, this.height),
-        rotate: 0,
-      };
+    // let topRadius = this._getRandomValue({ MIN: 1, MAX: 3 }),
+    //   randomDeg = Math.PI * 2 * Math.random(),
+    //   snow = {
+    //     x: center.x + this.INIT_POSITION_MARGIN * Math.cos(randomDeg),
+    //     y: center.y + this.INIT_POSITION_MARGIN * Math.sin(randomDeg),
+    //     vx: this.getRandomValue(this.VELOCITY),
+    //     vy: this.getRandomValue(this.VELOCITY),
+    //     deltaRotate: this.getRandomValue(this.DELTA_ROTATE),
+    //     scale: this.SCALE.INIT,
+    //     deltaScale: 1 + this.SCALE.DELTA * 500 / Math.max(this.width, this.height),
+    //     rotate: 0,
+    //   };
 
-    console.log(snow);
+    this._renderSnow(canvas, context, center, radius);
+
+    // console.log(snow);
 
     //画布背景色填充
-    var gradient = context.createRadialGradient(center.x, center.y, 0, center.x, center.y, radius),
-      backgroundColor = this.BACKGROUND_COLOR.replace('%h', this.hue);
+    // var gradient = context.createRadialGradient(center.x, center.y, 0, center.x, center.y, radius),
+    //   backgroundColor = this.BACKGROUND_COLOR.replace('%h', this.hue);
 
-    gradient.addColorStop(0, backgroundColor.replace('%l', 30));
-    gradient.addColorStop(0.2, backgroundColor.replace('%l', 20));
-    gradient.addColorStop(1, backgroundColor.replace('%l', 5));
+    // gradient.addColorStop(0, backgroundColor.replace('%l', 30));
+    // gradient.addColorStop(0.2, backgroundColor.replace('%l', 20));
+    // gradient.addColorStop(1, backgroundColor.replace('%l', 5));
 
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, this.width, this.height);
+    // context.fillStyle = gradient;
+    // context.fillRect(0, 0, this.width, this.height);
 
-    this.hue += this.DELTA_HUE;
-    this.hue %= 360;
+    // this.hue += this.DELTA_HUE;
+    // this.hue %= 360;
+
+    //
 
     // for(var i = this.snows.length - 1; i >= 0; i--){
     // 	if(!this.snows[i].render(this.context)){
@@ -269,6 +277,51 @@ export default class Index extends Component {
     // this.hue %= 360;
     // debugger;
     // this.createSnow(this.SNOW_COUNT.DELTA, false);
+  }
+
+  _renderSnow(canvas, context, center, radius) {
+    context.strokeStyle = '#000';
+    context.beginPath();
+    let x1 = 400.0;
+    let y1 = 150.0;
+    let x2 = 100.0;
+    let y2 = 150.0;
+    let x11 = x2 + (x1 - x2) / 2;
+    let y11 = y1 + Math.sin(Math.PI / 3) * (x1 - x2);
+    this._renderSnowLine(context, x1, y1, x2, y2, 0, this.depth);
+    this._renderSnowLine(context, x11, y11, x1, y1, 0, this.depth);
+    this._renderSnowLine(context, x2, y2, x11, y11, 0, this.depth);
+  }
+
+  //
+  _renderSnowLine(context, x1, y1, x2, y2, currentNum, endNum) {
+    if (endNum == 0) {
+      context.moveTo(x1, y1);
+      context.lineTo(x2, y2);
+      context.stroke();
+      return false;
+    }
+    let x3 = (x2 - x1) / 3 + x1;
+    let y3 = (y2 - y1) / 3 + y1;
+    let x4 = (x2 - x1) / 3 * 2 + x1;
+    let y4 = (y2 - y1) / 3 * 2 + y1;
+    let x5 = x3 + (x2 - x1 - (y2 - y1) * Math.sqrt(3)) / 6;
+    let y5 = y3 + ((x2 - x1) * Math.sqrt(3) + (y2 - y1)) / 6;
+    currentNum = currentNum + 1;
+    if (currentNum == endNum) {
+      context.fillStyle = '#eee';
+      context.moveTo(x1, y1);
+      context.lineTo(x3, y3);
+      context.lineTo(x5, y5);
+      context.lineTo(x4, y4);
+      context.lineTo(x2, y2);
+      context.stroke();
+      return false;
+    }
+    this._renderSnowLine(context, x1, y1, x3, y3, currentNum, endNum);
+    this._renderSnowLine(context, x3, y3, x5, y5, currentNum, endNum);
+    this._renderSnowLine(context, x5, y5, x4, y4, currentNum, endNum);
+    this._renderSnowLine(context, x4, y4, x2, y2, currentNum, endNum);
   }
 
   render() {

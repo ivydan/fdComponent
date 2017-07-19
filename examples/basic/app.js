@@ -7,11 +7,11 @@ const App = () => {
   
   return (
     <div>
-      <Navigation />
+      {/*<Navigation />*/}
       <div>
         <Snow />
       </div>
-      {/* <Wood /> */}
+      {/* <Wood />
       <Tabs forceRenderTabPanel={true}>
         <TabList>
           <Tab>React</Tab>
@@ -106,7 +106,7 @@ const App = () => {
           <h2>This is Tab C</h2>
           <p>Just mind that the output might be invalid HTML (<code>{'<div>'}</code> inside a <code>{'<ul>'}</code> for instance).</p>
         </TabPanel>
-      </Tabs>
+      </Tabs> */}
     </div>
   );
 };
