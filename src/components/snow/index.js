@@ -161,10 +161,62 @@ export default class Index extends Component {
     this.VELOCITY = { MIN: -1, MAX: 1 };
     this.DELTA_ROTATE = { MIN: -Math.PI / 180 / 2, MAX: Math.PI / 180 / 2 };
     this.SCALE = { INIT: 0.04, DELTA: 0.01 };
-    this.depth = 4;
+    this.depth = 3;
+    this.Color = 'rgba(255, 255, 255, 0.8)';
+    this.LineWidth = 2;
+    this.Blur = 10;
+    this.Offset = 4;
+    this.TOP_RADIUS = { MIN: 1, MAX: 3 };
   }
   //   static defaultProps = {
   //   }
+
+  _renderOSnow(canvas, context, center, radius) {
+    // context.clearRect(0, 0, radius*2, radius*2);
+    context.save();
+    context.beginPath();
+    context.translate(radius, radius); //重新印射画布的起始位置
+    context.strokeStyle = this.Color;
+    context.lineWidth = this.LineWidth;
+    context.shadowColor = this.Color;
+    context.shadowBlur = this.Blur;
+
+    //绘制-----
+    let angle60 = Math.PI / 180 * 60;
+    let sin60 = Math.sin(angle60);
+    let cos60 = Math.cos(angle60);
+    let threshold = (Math.random() * radius / this.Offset) | 0;
+    let rate = 0.5 + Math.random() * 0.5;
+    let offsetY = this.Offset * Math.random() * 2;
+    let offsetCount = radius / this.Offset;
+    let topRadius = this._getRandomValue(this.TOP_RADIUS);
+    context.save();
+    context.rotate(angle60);
+    console.log(threshold);
+    for (let thr = 0; thr <= threshold; thr++) {
+      let y = -this.Offset * thr;
+      context.moveTo(0, y);
+      context.lineTo(y * sin60, y * cos60);
+    }
+    for (var j = threshold; j < offsetCount; j++) {
+      var y = -this.Offset * j,
+        x = j * (offsetCount - j + 1) * rate;
+
+      context.moveTo(x, y - offsetY);
+      context.lineTo(0, y);
+      context.lineTo(-x, y - offsetY);
+    }
+
+    context.moveTo(0, 0);
+    context.lineTo(0, -radius);
+    context.arc(0, -radius - topRadius, topRadius, Math.PI / 2, Math.PI * 2.5, false);
+    context.restore;
+
+    context.stroke();
+    context.restore();
+
+    debugger;
+  }
 
   componentDidMount() {
     this._renderDraw();
@@ -233,6 +285,9 @@ export default class Index extends Component {
     canvas.width = this.width;
     canvas.height = this.height;
 
+    context.fillStyle = '#333';
+    context.fillRect(0, 0, this.width, this.height);
+
     //创建雪花
 
     // let topRadius = this._getRandomValue({ MIN: 1, MAX: 3 }),
@@ -249,6 +304,7 @@ export default class Index extends Component {
     //   };
 
     this._renderSnow(canvas, context, center, radius);
+    this._renderOSnow(canvas, context, center, radius);
 
     // console.log(snow);
 
@@ -282,10 +338,10 @@ export default class Index extends Component {
   _renderSnow(canvas, context, center, radius) {
     context.strokeStyle = '#000';
     context.beginPath();
-    let x1 = 400.0;
-    let y1 = 150.0;
-    let x2 = 100.0;
-    let y2 = 150.0;
+    let x1 = 50.0;
+    let y1 = 100.0;
+    let x2 = 150.0;
+    let y2 = 100.0;
     let x11 = x2 + (x1 - x2) / 2;
     let y11 = y1 + Math.sin(Math.PI / 3) * (x1 - x2);
     this._renderSnowLine(context, x1, y1, x2, y2, 0, this.depth);
