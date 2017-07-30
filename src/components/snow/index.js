@@ -166,6 +166,7 @@ export default class Index extends Component {
     this.LineWidth = 2;
     this.Blur = 10;
     this.Offset = 4;
+    this.Radius = 20;
     this.TOP_RADIUS = { MIN: 1, MAX: 3 };
   }
   //   static defaultProps = {
@@ -185,32 +186,35 @@ export default class Index extends Component {
     let angle60 = Math.PI / 180 * 60;
     let sin60 = Math.sin(angle60);
     let cos60 = Math.cos(angle60);
-    let threshold = (Math.random() * radius / this.Offset) | 0;
+    let threshold = (Math.random() * this.Radius / this.Offset) | 0;
     let rate = 0.5 + Math.random() * 0.5;
     let offsetY = this.Offset * Math.random() * 2;
-    let offsetCount = radius / this.Offset;
+    let offsetCount = this.Radius / this.Offset;
     let topRadius = this._getRandomValue(this.TOP_RADIUS);
-    context.save();
-    context.rotate(angle60);
+
     console.log(threshold);
-    for (let thr = 0; thr <= threshold; thr++) {
-      let y = -this.Offset * thr;
-      context.moveTo(0, y);
-      context.lineTo(y * sin60, y * cos60);
-    }
-    for (var j = threshold; j < offsetCount; j++) {
-      var y = -this.Offset * j,
-        x = j * (offsetCount - j + 1) * rate;
+    for (var i = 0; i < 6; i++) {
+      context.save();
+      context.rotate(angle60 * i);
+      for (var j = 0; j <= threshold; j++) {
+        var y = -this.Offset * j;
+        context.moveTo(0, y);
+        context.lineTo(y * sin60, y * cos60);
+      }
+      for (var j = threshold; j < offsetCount; j++) {
+        var y = -this.Offset * j,
+          x = j * (offsetCount - j + 1) * rate;
 
-      context.moveTo(x, y - offsetY);
-      context.lineTo(0, y);
-      context.lineTo(-x, y - offsetY);
-    }
+        context.moveTo(x, y - offsetY);
+        context.lineTo(0, y);
+        context.lineTo(-x, y - offsetY);
+      }
 
-    context.moveTo(0, 0);
-    context.lineTo(0, -radius);
-    context.arc(0, -radius - topRadius, topRadius, Math.PI / 2, Math.PI * 2.5, false);
-    context.restore;
+      context.moveTo(0, 0);
+      context.lineTo(0, this.Radius);
+      context.arc(0, -this.Radius - topRadius, topRadius, Math.PI / 2, Math.PI * 2.5, false);
+      context.restore();
+    }
 
     context.stroke();
     context.restore();
@@ -303,7 +307,7 @@ export default class Index extends Component {
     //     rotate: 0,
     //   };
 
-    this._renderSnow(canvas, context, center, radius);
+    // this._renderSnow(canvas, context, center, radius);
     this._renderOSnow(canvas, context, center, radius);
 
     // console.log(snow);
