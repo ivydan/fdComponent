@@ -22,6 +22,8 @@
     "bundle": "mkdir -p dist && yarn run build:umd && yarn run build:umd:min",
     "format": "prettier --write --single-quote --print-width 100 --trailing-comma all \"src/**/*.js\"",
     "lint": "eslint src",
+    // "precommit": "lint-staged",
+    "preversion": "yarn run lint && yarn test && yarn run build && yarn run bundle && git add dist/ && git diff --quiet --exit-code --cached || git commit -n -m 'publish: Distribution'",
     "prepublish": "yarn run build",
     "test": "jest",
     "start": "webpack-dev-server --inline --content-base examples/"
