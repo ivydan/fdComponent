@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+        <div id="subContent" style="height:50px;">
+            sub
+            <input type="button" value="submit" onclick="SuperChange()">
+        </div>
+        <script>
+            function changeColor(){
+                var sub = document.getElementById("subContent");
+                sub.style.color = "red";
+            }
+            function SuperChange(){
+                window.parent.changeStyle();
+            }
+        </script>
+    </body>
+</html>
