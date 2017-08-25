@@ -8,6 +8,7 @@ import Wood from './components/wood';
 import CanTagBall from './components/canTagBall';
 import Navigation from './components/navigation';
 import Snow from './components/snow';
+import SnowTest from './components/snow/text.js';
 
 export {
   Snow,
@@ -20,4 +21,5 @@ export {
   TabPanel,
   Tabs,
   resetIdCounter,
+  SnowTest
 };
