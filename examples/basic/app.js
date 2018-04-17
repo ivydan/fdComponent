@@ -1,17 +1,38 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Snow, Navigation, Tab, Tabs, TabList, TabPanel, FontLight, Wood, CanTagBall } from '../../src/index';
+import { Snow, Navigation, Tab, Tabs, TabList, TabPanel, FontLight, Wood, CanTagBall, CheckBox } from '../../src/index';
 import '../../style/react-tabs.css';
+const disOptions = [{
+    value: 'a', 
+    label:'test1',
+    checked: true,
+    disabled: true
+},{
+    value: 'b', 
+    label:'test2'
+},{
+    value: 'c', 
+    label:'test3',
+    checked: true,
+}]
 
 const App = () => {
   
   return (
-    <div>
+    <div style={{padding: '10%'}}>
       {/*<Navigation />*/}
       <div>
+        <CheckBox options={disOptions} />
+      </div>
+      <div>
+        <CheckBox>
+          abc
+        </CheckBox>
+      </div>
+      {/*<div>
         <Snow />
       </div>
-      {/* <Wood />
+       <Wood />
       <Tabs forceRenderTabPanel={true}>
         <TabList>
           <Tab>React</Tab>

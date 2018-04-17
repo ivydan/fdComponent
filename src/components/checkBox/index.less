@@ -1,0 +1,88 @@
+@themeColor: red;
+
+//基础组件-CheckBox
+.fd-checkbox{
+    display: inline-block;
+    font-size: 12px;
+    line-height: 32px;
+    margin-right: 12px;
+    cursor: pointer;
+    input{
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        margin-left: 0 !important;
+    }
+    //默认状态
+    .checkbox{
+        white-space: nowrap;
+        outline: none;
+        display: inline-block;
+        line-height: 1;
+        position: relative;
+        vertical-align: text-bottom;
+        .checkbox-inner{
+            position: relative;
+            top: 1px;
+            left: 0;
+            display: block;
+            width: 14px;
+            height: 14px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background-color: #fff;
+            margin-right: 3px;
+            transition: all .3s;
+        }
+    }
+    //选中状态
+    .checkbox-check{
+        .checkbox-inner{
+            background-color: @themeColor;
+            border-color: @themeColor;
+        }
+        .checkbox-inner:after{
+            transform: rotate(45deg) scale(1);
+            position: absolute;
+            left: 4px;
+            top: 0px;
+            display: table;
+            width: 5px;
+            height: 8px;
+            border: 2px solid #fff;
+            border-top: 0;
+            border-left: 0;
+            content: " ";
+            transition: all .1s cubic-bezier(.71,-.46,.88,.6);
+        }
+    }
+    //不可选状态
+    .checkbox-disable{
+        cursor: not-allowed;
+        .checkbox-inner{
+            border-color: #d9d9d9!important;
+            background-color: #f7f7f7;
+        }
+        .checkbox-inner:after{
+            border-color: rgba(0,0,0,.25);
+        }
+    }
+}
+
+.fd-checkbox:hover .checkout-inner{
+    border-color: @themeColor;
+}
+
+.fd-checkbox-disable{
+    cursor: not-allowed;
+    span{
+        color: rgba(0,0,0,.25);
+    }
+}

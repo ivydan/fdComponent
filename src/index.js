@@ -9,6 +9,7 @@ import CanTagBall from './components/canTagBall';
 import Navigation from './components/navigation';
 import Snow from './components/snow';
 import SnowTest from './components/snow/text.js';
+import CheckBox from './components/checkBox';
 
 export {
   Snow,
@@ -21,5 +22,6 @@ export {
   TabPanel,
   Tabs,
   resetIdCounter,
-  SnowTest
+  SnowTest,
+  CheckBox
 };
